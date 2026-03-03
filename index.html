@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dip Tarafder | Web</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;600&family=Meow+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg: #050507;
+            --surface: rgba(255, 255, 255, 0.03); 
+            --border-white: rgba(255, 255, 255, 0.4);
+            --accent-emerald: #10b981; 
+            --accent-purple: #9d50bb; 
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --font-hike: 'Bebas Neue', sans-serif; 
+            --font-hand: 'Meow Script', cursive;  
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-primary); 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            min-height: 90vh;
+        }
+
+        /* --- PURPLE MIXTURE BACKGROUND --- */
+        .blur-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 30% 30%, #1a0a2e 0%, #050507 100%);
+        }
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.3;
+            animation: drift 20s infinite alternate ease-in-out;
+        }
+        .blob-1 { width: 600px; height: 600px; background: var(--accent-purple); top: -10%; right: -5%; }
+        .blob-2 { width: 500px; height: 500px; background: #3b82f6; bottom: -10%; left: -5%; animation-delay: -5s; }
+        @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(100px, 50px) scale(1.0); } }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- NAV --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 20px 0; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(20px); border-bottom: 0.6px solid var(--border-white);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-hike); font-size: 1.5rem; letter-spacing: 2px; }
+        .logo span { font-family: var(--font-hand); color: var(--accent-emerald); font-size: 2.2rem; margin-left: 5px; }
+
+        /* --- HERO --- */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 60px; }
+        .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+        .hero-text h1 { font-family: var(--font-hike); font-size: clamp(3.5rem, 10vw, 7.5rem); line-height: 0.8; margin-bottom: 25px; }
+        .hero-text h1 em { font-family: var(--font-hand); font-style: normal; color: var(--accent-purple); display: block; font-size: 0.6em; text-shadow: 0 0 20px var(--accent-purple); }
+
+        .social-container { display: flex; gap: 25px; margin-top: 20px; }
+        .social-link { font-size: 2rem; color: white; transition: 0.3s; }
+        .social-link:hover { transform: translateY(-5px); filter: drop-shadow(0 0 10px white); }
+
+        /* --- PROFILE --- */
+        .floating-sphere { 
+            position: relative; width: 280px; height: 280px; 
+            border: 2px solid var(--border-white); border-radius: 50%;
+            padding: 10px; animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        .sphere-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
+        .sphere-inner img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- STYLISH GLOWING BENTO BOXES --- */
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; padding-bottom: 80px; }
+        
+        .bento-item { 
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--border-white); 
+            padding: 40px; 
+            border-radius: 24px; 
+            backdrop-filter: blur(15px);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* The Glow Effect on Hover */
+        .bento-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .bento-item:hover { 
+            transform: translateY(-10px) scale(1.02);
+            border-color: #fff;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .bento-item:hover::before { opacity: 1; }
+
+        .bento-item i { font-size: 2rem; margin-bottom: 20px; transition: 0.3s; }
+        .bento-item:hover i { transform: scale(1.2); filter: drop-shadow(0 0 10px var(--accent-emerald)); }
+
+        .bento-item h3 { font-family: var(--font-hike); letter-spacing: 3px; font-size: 1.8rem; margin-bottom: 10px; opacity: 0.8; }
+        
+        .glow-purple { color: var(--accent-purple); text-shadow: 0 0 15px var(--accent-purple); }
+        .glow-white { text-shadow: 0 0 15px rgba(255,255,255,0.5); }
+
+        .w-8 { grid-column: span 8; } 
+        .w-4 { grid-column: span 4; }
+
+        @media (max-width: 968px) { .w-8, .w-4 { grid-column: span 12; } }
+
+        /* Tag Styling inside boxes */
+        .hike-tag {
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            font-family: var(--font-hike);
+            border-radius: 100px;
+            transition: 0.3s;
+        }
+        .bento-item:hover .hike-tag { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+        /* --- FOOTER --- */
+        footer { padding: 100px 0; text-align: center; border-top: 1px solid var(--border-white); background: rgba(0,0,0,0.5); }
+        .footer-logo { font-family: var(--font-hike); letter-spacing: 16px; font-size: 1.5rem; }
+    </style>
+</head>
+<body>
+
+    <div class="blur-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">-<span><em class="glow-white"></em>Dip_Tarafder</span></div>
+            <a href="http://diptarafd3t-cell.github.io/Contact-me-Dip/" class="hike-font" style="color: white; text-decoration: none; border: 1px solid white; padding: 8px 20px; border-radius: 100px; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s;">contacts</a>
+        </div>
+    </nav>
+
+    <section class="hero container">
+        <div class="hero-grid">
+            <div class="hero-text">
+                <p class="Mrs Saint Delafield" style="letter-spacing: 10px; color: var(--accent-emerald); margin-bottom: 12px;">			Hello!</p>
+                <h1 class="glow-white">ME AS<br>Developer<em class="glow-purple">& Friend.</em></h1>
+                <p style="color: var(--text-secondary); max-width: 500px; font-size: 1.1rem; line-height: 1.7;">See More About Me At Down↓</p>
+                
+                <div class="social-container">
+                    <a href="https://facebook.com/share/14Vurwwd31C/" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/qr/KMJH36GYYS26B1" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/diptarafderr?igsh=MWd3c3N2bjZzZGFrbw==" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center;">
+                <div class="floating-sphere">
+                    <div class="sphere-inner">
+                        <img src="https://i.imgur.com/Qch56wA.png" alt="Dip Tarafder">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="bento-grid">
+            <div class="bento-item w-8">
+                <div>
+                    <i class="fas fa-feather-alt" style="color: var(--accent-emerald);"></i>
+                    <h3>Philosophy</h3>
+                    <p class="glow-white" style="font-family: var(--font-hand); font-size: 2.8rem; line-height: 1;">"mistakes are the prizeless lesson"</p>
+                </div>
+            </div>
+
+            <div class="bento-item w-4">
+                <div>
+                    <i class="fas fa-fingerprint" style="color: var(--accent-purple);"></i>
+                    <h3>Identity</h3>
+                    <div style="font-family: var(--font-hike); font-size: 2.2rem; line-height: 0.9; margin-top: 10px;">
+                        19+ YEARS<br>
+                        OLD<br>
+                        <span class="glow-purple">STILL-SINGLE</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-item w-4">
+                <div>
+                    <i class="fas fa-code" style="color: #3b82f6;"></i>
+                    <h3>Capability</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8;">
+                        • Built In Pain<br>
+                        • Java-Scrip<br>
+                        • Brutalist UI/UX Design
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-item w-8">
+                <div>
+                    <i class="fas fa-palette" style="color: #fbbf24;"></i>
+                    <h3>Hobbies</h3>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                        <span class="hike-tag">GAMING</span>
+                        <span class="hike-tag">Music</span>
+                        <span class="hike-tag">CHILLING</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo glow-white">
+            🔴</div>
+        <div style="font-family: var(--font-hand); font-size: 2.4rem; color: var(--accent-purple); margin-top: 6px;">no pain, no gain<em class="glow-blue"></em></div>
+        <p style="margin-top: 18px; font-size: 0.7rem; opacity: 0.3; letter-spacing: 5px; font-family: var(--font-hike);">dip-tarafder © 2026</p>
+    </footer>
+
+    <script>
+        // Interactive Mouse Glow for Bento Boxes
+        const boxes = document.querySelectorAll('.bento-item');
+        boxes.forEach(box => {
+            box.addEventListener('mousemove', e => {
+                const rect = box.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                box.style.setProperty('--x', `${x}%`);
+                box.style.setProperty('--y', `${y}%`);
+            });
+        });
+    </script>
+</body>
+  </html>
